@@ -1,0 +1,150 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{titling} % For \subtitle command
+
+\title{Laboratório de Engenharia de Software}
+
+\date{Setembro 2025}
+
+\begin{document}
+
+\maketitle
+\newpage
+
+\section{Sumário}
+\subsection* {2 Introdução..................................................................... 3}
+\subsection* {3   Definição da Demanda................................................... 3}
+\subsection* {3.1 Oportunidade Percebida ............................................ 3}
+\subsection* {3.2 Razão ou justificativa para esta demanda.................. 3}
+\subsection* {3.3 Descrição sucinta do produto .................................... 4}
+\subsection* {3.4 Clientes, usuários e demais envolvidos........................ 4}
+\newpage
+
+\section{Introdução}
+Justiça Simples é uma iniciativa tecnológica que busca democratizar o acesso à Justiça no Brasil por meio de Inteligência Artificial. A proposta consiste em um sistema capaz de traduzir documentos jurídicos — petições, decisões e andamentos processuais — em linguagem clara e acessível para a população.
+
+A solução é acessível via WhatsApp e, futuramente, por meio de aplicativo dedicado, oferecendo respostas em formato texto e áudio para aumentar a inclusão de pessoas com baixa escolaridade, idosos e cidadãos com deficiência visual.
+
+O projeto tem como foco principal reduzir as barreiras de entendimento que afastam os cidadãos de seus direitos, promovendo transparência e cidadania. Além disso, a iniciativa está alinhada aos seguintes Objetivos de Desenvolvimento Sustentável (ODS) da ONU:
+\begin{itemize}
+    \item ODS 10 – Redução das Desigualdades: ao oferecer acessibilidade jurídica para populações vulneráveis.
+    \item ODS 16 – Paz, Justiça e Instituições Eficazes: ao promover maior transparência, acesso à informação e fortalecimento da confiança no sistema judicial.
+    \item ODS 9 – Indústria, Inovação e Infraestrutura: ao utilizar tecnologia para ampliar o impacto social e construir soluções inclusivas e escaláveis
+\end{itemize}
+
+\section{Definição da demanda}
+    \subsection{Oportunidade Percebida}
+    O problema identificado está na dificuldade de compreensão dos documentos jurídicos por parte da população em geral. Petições, decisões e andamentos processuais utilizam uma linguagem técnica, repleta de jargões e formalismos, o que torna o entendimento inacessível para pessoas sem formação jurídica. Esse obstáculo afeta principalmente cidadãos com baixa escolaridade, idosos e pessoas com deficiência visual, que acabam encontrando barreiras para exercer plenamente seus direitos. A falta de clareza nos textos jurídicos compromete a autonomia e a transparência no acompanhamento de processos legais.
+    \subsection{Razão ou justificativa para esta demanda}
+    A justificativa para o desenvolvimento da solução está na necessidade de democratizar o acesso à justiça, tornando a linguagem jurídica mais clara e compreensível para todos. Ao simplificar os documentos legais, busca-se reduzir desigualdades, garantir que o cidadão compreenda prazos, obrigações e consequências de cada etapa do processo, além de ampliar a acessibilidade por meio de recursos como a conversão de texto em áudio. Esse objetivo também dialoga com a promoção da cidadania, beneficiando indivíduos e instituições como a Defensoria Pública e organizações que atendem populações vulneráveis, além de estar alinhado a metas sociais e aos Objetivos de Desenvolvimento Sustentável da ONU.
+
+\subsection{Descrição sucinta do produto de software que será produzido }
+O software a ser desenvolvido, denominado \textbf{IADvogado}, terá como finalidade traduzir documentos jurídicos em uma linguagem simples, acessível e direta para o público leigo. Inicialmente, o sistema será disponibilizado por meio de integração com o WhatsApp, possibilitando que o usuário envie documentos ou insira o número de um processo para receber a explicação. O funcionamento será apoiado em tecnologias como OCR para leitura de documentos, modelos de linguagem para simplificação textual e TTS para oferecer versões em áudio. O produto, em sua versão mínima viável (MVP), fornecerá explicações organizadas em três blocos principais — o que aconteceu, o que significa e o que fazer agora — acompanhadas de mensagens de responsabilidade que deixam claro que a ferramenta não substitui um advogado. 
+
+\subsection{Clientes, usuários e demais envolvidos }
+\begin{tabular}{|p{6cm}|p{6cm}|}
+    \hline
+    \centering \textbf{Grupo} & \textbf{Características / Relação com o produto}\\ \hline
+    Cidadãos em processos simples (trabalhistas, previdenciárias, pequenas causas) & Usuários finais: aqueles que necessitam entender seus processos, decisões, petições. \\\hline
+    Pessoas com baixa escolaridade, idosos, deficiência visual &Também usuários finais, com requisitos especiais de acessibilidade (áudio, clareza, simplicidade).\\\hline
+    Defensoria Pública e ONGs &Instituições que podem usar a ferramenta para facilitar comunicação com assistidos, reforçar transparência, reduzir carga de explicação/manual. \\\hline
+    Advogados / operadores do direito &Impactados indiretamente: embora o sistema não substitua advogados, eles poderão ter cidadãos mais bem informados, talvez menos dúvidas repetitivas, etc. \\\hline
+    Time de desenvolvimento / mantenedores &Responsáveis pela implementação técnica, design, qualidade, manutenção, ética e conformidade legal (como LGPD). \\\hline
+    Órgãos regulatórios / ética jurídica &Podem ter interesse na conformidade, na limitação de escopo (não substituir advogado), proteção de dados. \\\hline
+\end{tabular}
+
+\subsection{ Principais etapas necessárias para construir este produto}
+
+As principais etapas para o desenvolvimento do sistema são:
+
+\begin{itemize}
+    \item \textbf{Levantamento de requisitos:} Identificação das funcionalidades principais, como tradução de documentos jurídicos, uso de OCR, geração de áudio e integração com o WhatsApp.
+    \item \textbf{Definição do escopo e MVP:} Seleção das funcionalidades prioritárias que entreguem valor imediato ao usuário.
+    \item \textbf{Modelagem:} Estruturação da arquitetura do sistema, fluxos de interação e organização dos dados.
+    \item \textbf{Implementação:} Desenvolvimento da infraestrutura backend, integração com serviços externos e interface de comunicação com os usuários.
+    \item \textbf{Testes:} Verificação funcional, usabilidade, desempenho, acessibilidade e conformidade com a legislação.
+    \item \textbf{Lançamento do MVP:} Disponibilização inicial para um grupo piloto, coleta de feedback e melhorias.
+    \item \textbf{Manutenção e evolução:} Atualizações contínuas, correções de falhas e expansão de funcionalidades.
+\end{itemize}
+
+\subsection{Principais critérios de qualidade para o produto}
+
+Os principais critérios de qualidade definidos para o produto são:
+
+\begin{itemize}
+    \item \textbf{Clareza e compreensibilidade:} Linguagem simples e acessível, livre de jargões jurídicos.
+    \item \textbf{Acessibilidade:} Inclusão de recursos como áudio e interfaces intuitivas.
+    \item \textbf{Confiabilidade:} Explicações corretas, sem ambiguidades que possam causar interpretações equivocadas.
+    \item \textbf{Tempo de resposta:} Rapidez no processamento e na entrega das informações.
+    \item \textbf{Segurança e privacidade:} Conformidade com a LGPD e proteção rigorosa dos dados fornecidos pelos usuários.
+    \item \textbf{Robustez:} Capacidade de lidar com diferentes formatos de documentos e possíveis falhas de OCR.
+    \item \textbf{Usabilidade:} Interface simples e intuitiva, adequada a diversos perfis de usuários.
+    \item \textbf{Escalabilidade:} Suporte ao crescimento da base de usuários e ampliação das funcionalidades.
+    \item \textbf{Ética e legalidade:} Garantia de que o sistema não substitua advogados, servindo apenas como apoio informativo.
+\end{itemize}
+
+\section{Requisitos do produto}
+\subsection*{Requisitos Funcionais}
+\begin{tabular}{|c|p{7cm}|c|c|}
+\hline
+\textbf{ID} & \textbf{Descrição} & \textbf{Prioridade} & \textbf{Categoria} \\
+\hline
+RF01 & Receber documentos (PDF, imagem, texto) e gerar explicação simplificada. & Alta & Funcionalidade principal \\\hline
+RF02 & Estruturar explicações em três blocos: O que aconteceu, O que significa, O que fazer agora. & Alta & Experiência do usuário \\\hline
+RF03 & Permitir consulta por número de processo. & Alta & Entrada de dados \\\hline
+RF04 & Retornar conteúdo em formato textual no canal de interação. & Alta & Saída \\\hline
+RF05 & Gerar resposta opcional em formato de áudio (TTS). & Alta & Acessibilidade \\\hline
+RF06 & Notificar automaticamente o usuário sobre novos andamentos. & Média & Usabilidade \\\hline
+RF07 & Suporte inicial no WhatsApp, expansível para PWA/mobile. & Média & Multicanalidade \\\hline
+RF08 & Registrar logs de uso, erros e tempo de resposta. & Alta & Monitoramento \\\hline
+RF09 & Incluir disclaimers legais em todas as respostas. & Alta & Ética/Compliance \\\hline
+RF10 & Oferecer autenticação mínima (telefone ou conta) para acompanhamento contínuo. & Média & Segurança \\\hline
+RF11 & Permitir configuração de preferências (texto, áudio ou ambos). & Média & Personalização \\\hline
+RF12 & Disponibilizar histórico de consultas armazenado por período definido. & Média & Usabilidade \\\hline
+RF13 & Suporte a múltiplos idiomas. & Baixa & Internacionalização \\\hline
+RF14 & Garantir compatibilidade com diferentes dispositivos e navegadores. & Alta & Compatibilidade \\\hline
+RF15 & Implementar sistema de feedback para melhorias contínuas. & Baixa & Qualidade \\
+\hline
+\end{tabular}
+
+\subsection*{Requisitos não funcionais}
+\begin{tabular}{|c|p{7cm}|c|c|}
+\hline
+\textbf{ID} & \textbf{Descrição} & \textbf{Prioridade} & \textbf{Categoria} \\
+\hline
+RNF01&	Respostas devem ser compreensíveis a cidadãos com escolaridade média ou inferior.&	Alta&	Usabilidade\\\hline
+RNF02& Tempo máximo de resposta: 2 minutos&.	Alta&	Desempenho\\\hline
+RNF03&	Oferecer suporte a áudio e design responsivo para acessibilidade.&	Alta&	Acessibilidade\\\hline
+RNF04&	Acuracia mínima das traduções simplificadas 90	&Alta &	Confiabilidade\\\hline
+RNF05&	Suportar múltiplos usuários simultâneos sem degradação perceptível.&	Alta&	Escalabilidade\\\hline
+RNF06&	Criptografia em repouso e em trânsito; exclusão periódica de dados.	&Alta&	Segurança\\\hline
+RNF07&	Implantável em diferentes nuvens (Railway, Digital Ocean, AWS).	&Média	&Portabilidade\\\hline
+RNF08&	Compatibilidade com navegadores modernos e Android/iOS.	&Média	&Compatibilidade\\\hline
+RNF09&	Código modular, documentado e testado (PEP8, docstrings, testes unitários).&	Alta	&Manutenibilidade\\\hline
+RNF10&	Disponibilidade mínima de 99 ao mês.	&Alta	&Confiabilidade\\\hline
+RNF11&	Registro de acessos e operações para auditoria.	&Média	&Auditabilidade\\\hline
+RNF12&	Suporte futuro para múltiplos idiomas (internacionalização).&	Baixa&	Evolução\\\hline
+RNF13&	Uso preferencial de serviços open source e infraestrutura de baixo custo.&	Média&	Sustentabilidade financeira\\\hline
+RNF14&	Reforço constante de disclaimers para conformidade legal (OAB, LGPD).&	Alta&	Ética/Compliance\\\hline
+\end{tabular}
+\subsection*{Restrições}
+\begin{tabular}{|c|p{7cm}|c|c|}
+\hline
+\textbf{ID} & \textbf{Descrição} & \textbf{Prioridade} & \textbf{Categoria} \\
+\hline
+RE01&	O sistema não pode elaborar petições ou peças jurídicas.&	Alta&	Legal\\\hline
+RE02&	O sistema não pode emitir parecer jurídico personalizado.&	Alta&	Legal\\\hline
+RE03&	Dados devem seguir integralmente a LGPD.&	Alta	&Conformidade\\\hline
+RE04&	A infraestrutura inicial deve operar em modelo de baixo custo.&	Média&	Operacional\\
+\hline
+
+
+    
+\end{tabular}
+
+
+   
+    
+
+
+\end{document}
