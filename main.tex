@@ -1,6 +1,7 @@
 \documentclass{article}
 \usepackage{graphicx} % Required for inserting images
 \usepackage{titling} % For \subtitle command
+\graphicspath{{images/}} %configuring the graphicx package
 
 \title{Laboratório de Engenharia de Software}
 
@@ -21,7 +22,7 @@
 \newpage
 
 \section{Introdução}
-IA Dvogado é uma iniciativa tecnológica que busca democratizar o acesso à Justiça no Brasil por meio de Inteligência Artificial. A proposta consiste em um sistema capaz de traduzir documentos jurídicos — petições, decisões e andamentos processuais — em linguagem clara e acessível para a população.
+Justiça Simples é uma iniciativa tecnológica que busca democratizar o acesso à Justiça no Brasil por meio de Inteligência Artificial. A proposta consiste em um sistema capaz de traduzir documentos jurídicos — petições, decisões e andamentos processuais — em linguagem clara e acessível para a população.
 
 A solução é acessível via WhatsApp e, futuramente, por meio de aplicativo dedicado, oferecendo respostas em formato texto e áudio para aumentar a inclusão de pessoas com baixa escolaridade, idosos e cidadãos com deficiência visual.
 
@@ -137,14 +138,38 @@ RE02&	O sistema não pode emitir parecer jurídico personalizado.&	Alta&	Legal\\
 RE03&	Dados devem seguir integralmente a LGPD.&	Alta	&Conformidade\\\hline
 RE04&	A infraestrutura inicial deve operar em modelo de baixo custo.&	Média&	Operacional\\
 \hline
-
-
-    
 \end{tabular}
 
+\newpage
 
-   
+\section{Wireframes}
+
+\subsection*{Tela Principal (Versão Desktop/Web e Mobile)}
+Protótipo da tela inicial onde o usuário interage com o sistema IADvogado. No desktop, os elementos aparecem organizados em uma interface ampla, enquanto no mobile o layout é simplificado e adaptado para telas menores, com botões mais acessíveis ao toque. Essa tela inclui opções como envio de documentos, consulta de processo e visualização de respostas. 
+
+\includegraphics{images/wireframe1.jpeg}
+
+\newpage
+
+\subsection*{Interface do sistema IADvogado com WhatsApp}
+Mostra como a interação via WhatsApp será modelada: simula mensagens em que o usuário envia um documento ou número de processo e recebe de volta uma explicação simplificada, possivelmente com opção em áudio ou texto.
+\includegraphics{images/wireframe2.jpeg}
+\newpage
+
+\subsection*{Tela Inicial em um app futuro}
+Protótipo de uma tela inicial caso o sistema evolua para um aplicativo dedicado. Exibe o logo e opções principais, como “Enviar documento”, “Consultar processo” e “Histórico”.
+
+\includegraphics{images/wireframe3.jpeg}
+
+\subsection*{Tela de Resultado (tradução simplificada)}
+Mostra como será exibida a saída: após o envio de documento ou consulta, o sistema retorna uma tradução simplificada em blocos — o que aconteceu, o que significa e o que fazer agora.
+
+\includegraphics{images/wireframe 4.jpeg}
+
+
+\section{Modelagem}
+
+\section{Arquitetura do sistema e Ferramentas}   
     
-
 
 \end{document}
