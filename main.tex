@@ -5,24 +5,31 @@
 
 \title{Laboratório de Engenharia de Software}
 
+
+
+
 \date{Setembro 2025}
+
+\author{Bruno Antico Galin - 10417318 \and 
+Davi Martins Figueiredo - 10374878 \and
+Gustavo Fugulin Soares da Silva - 10418552 \and
+Henrique Pena Ribeiro - 10417975 \and
+Joao pedro gianfaldoni - 10409524}
+
+
 
 \begin{document}
 
 \maketitle
 \newpage
 
-\section{Sumário}
-\subsection* {2 Introdução..................................................................... 3}
-\subsection* {3   Definição da Demanda................................................... 3}
-\subsection* {3.1 Oportunidade Percebida ............................................ 3}
-\subsection* {3.2 Razão ou justificativa para esta demanda.................. 3}
-\subsection* {3.3 Descrição sucinta do produto .................................... 4}
-\subsection* {3.4 Clientes, usuários e demais envolvidos........................ 4}
+
+\tableofcontents
+
 \newpage
 
 \section{Introdução}
-IA Dvogado é uma iniciativa tecnológica que busca democratizar o acesso à Justiça no Brasil por meio de Inteligência Artificial. A proposta consiste em um sistema capaz de traduzir documentos jurídicos — petições, decisões e andamentos processuais — em linguagem clara e acessível para a população.
+Justiça Simples é uma iniciativa tecnológica que busca democratizar o acesso à Justiça no Brasil por meio de Inteligência Artificial. A proposta consiste em um sistema capaz de traduzir documentos jurídicos — petições, decisões e andamentos processuais — em linguagem clara e acessível para a população.
 
 A solução é acessível via WhatsApp e, futuramente, por meio de aplicativo dedicado, oferecendo respostas em formato texto e áudio para aumentar a inclusão de pessoas com baixa escolaridade, idosos e cidadãos com deficiência visual.
 
@@ -168,10 +175,114 @@ Mostra como será exibida a saída: após o envio de documento ou consulta, o si
 
 
 \section{Modelagem}
+\subsection{Propósito da Modelagem}
+Esta seção oferece um esboço integrador do sistema, antecipando seu aspecto arquitetural, como os componentes se encaixam e como os requisitos se materializam em casos de uso, dados, interfaces e processos. O objetivo é reduzir ambiguidades, orientar decisões de design e facilitar a comunicação entre stakeholders técnicos e não técnicos.
 
+\subsection{Escopo e Fronteira do Sistema}
+\begin{itemize}
+    \item \textbf{Nome do Sistema:} Justiça Simples
+    \item \textbf{Fronteira:} Serviço de tradução/simplificação jurídica acessível inicialmente via Whatsapp (Evolution API) e futuramente PWA/Mobile.
+    \item \textbf{Atores Externos:} Usuário final (cidadão), Defensoria/ONG parceira (operador institucional), Provedores de OCR/TTS/LLM, Portais/Jurisdições (TJs/TRTs/INSS), Plataforma WhatsApp (Evolution API), Serviço de armazenamento seguro (BD/objeto).
+    \item \textbf{Visão de alto nível do fluxo:} Usuário envia documento/número de processo → sistema extrai texto (OCR) → simplifica (LLM) → estrutura saída → gera áudio (TTS) → devolve texto/áudio → registra logs/métricas.
+\end{itemize}
+\subsection{Diagrama de Contexto}
+\includegraphics[width=2\textwidth,height=6cm,keepaspectratio]{images/Modelo de Contexto.jpg}
+\newpage
+\subsection{Modelo de Caso de Uso}
 
+\subsubsection{Diagrama de Casos de Uso (visão resumida)}
+\includegraphics[width=1.25\textwidth,height=10cm,keepaspectratio]{images/Caso de Uso.jpg}
+\subsubsection{Caso de Uso Crítico (Completo)}
+\begin{itemize}
+    \item \textbf{Atores Principais: }Usuário (A1).
+    \item \textbf{Pré-Condições: }Usuário autenticado (mínimo: validação de telefone) e consentimento LGPD.
+    \item \textbf{Cenário de sucesso Principal:}
+    \begin{enumerate}
+        \item Usuário envia PDF/Imagem/Texto via Whatsapp.
+        \item Sistema recebe e valida formato; registra pedido.
+        \item Sistema executa OCR (se aplicável) e extrai texto.
+        \item Sistema aplica prompt/heurística e submete a LLM.
+        \item Sistema estrutura resposta em blocos: “O que aconteceu / O que significa / O que fazer agora”.
+        \item Sistema devolve texto ao usuário.
+        \item Opcionalmente, o usuário solicita áudio; sistema gera TTS e envia nota de voz.
+    \end{enumerate}
 
-\section{Arquitetura do sistema e Ferramentas}   
-    
+    \item \textbf{Cenário Alternativos}
+    \begin{itemize}
+        \item 4a. OCR falha → sistema solicita novo envio (qualidade) ou oferece tentativa de leitura manual.
+        \item 5a. LLM indisponível → fallback para fila assíncrona e notificação de indisponibilidade.
+        \item 7a. TTS indisponível → instruir leitura em voz do dispositivo (fallback).
+    \end{itemize}
+    \item \textbf{Restrições/Observações:} Inserir disclaimer de que não há consultoria jurídica personalizada.
+\end{itemize}
+
+\subsection{Modelo de Sequência (Fluxo Principal do MVP)}
+\includegraphics[width=9\textwidth,height=7cm,keepaspectratio]{images/Modelo de Sequencia.png}
+
+\subsection{Modelo de Classes}
+\includegraphics[width=9\textwidth,height=7cm,keepaspectratio]{images/Modelo de Classes.png}
+\subsubsection{Modelo de Classes - Integrações do Sistema}
+\includegraphics[width=1.3\textwidth,height=7cm,keepaspectratio]{images/Modelo de Classes - Intergrações.png}
+
+\subsection{Modelo de Componentes (Arquitetura Lógica)}
+\includegraphics[width=1.3\textwidth,height=7cm,keepaspectratio]{images/Modelo de Componentes.jpg}
+\textbf{Racional:} separação de interface, aplicação, serviços externos e dados, favorecendo escalabilidade, testabilidade e DevOps.
+
+\subsection{Modelo de Implantação (Deployment - esboço)}
+\includegraphics[width=1.4\textwidth,height=7cm,keepaspectratio]{images/Modelo de Implatação.jpg}
+\textbf{Observações de DevOps: } integração/entrega contínua, logs/monitoramento, automação de infraestrutura e segurança na pipeline.
+
+\newpage
+
+\subsection{Modelos de Dados (ER Simplificado)}
+\includegraphics[width=3\textwidth,height=8cm,keepaspectratio]{images/Modelo de Dados.jpg}
+
+\textbf{Nota:} chaves/relacionamentos mínimos para MVP; versionamento de esquema via migrações.
+
+\subsection{Modelo de Estados (Requisição)}
+\includegraphics[width=3\textwidth,height=7cm,keepaspectratio]{images/Modelo de Estados.jpg}
+
+\textbf{Eventos típicos:} arquivo recebido, OCR ok, LLM ok, TTS ok, falha externa.
+
+\newpage
+
+\subsection{API (Esboço)}
+\begin{itemize}
+    \item POST /webhook/whatsapp — recepção de mensagens/eventos do conector.
+    \item POST /v1/requests — criação de requisição (documento/nº processo, metadados de consentimento).
+    \item GET /v1/requests/{id} — status e resultado (texto/URI de áudio).
+    \item POST /v1/requests/{id}/tts — geração/reattempt de áudio.
+    \item GET /v1/users/{id}/history — histórico de consultas.
+    \item PUT /v1/users/{id}/preferences — atualização de preferências (texto/áudio). Observações: autenticação mínima (token de canal/telefone), rate-limiting, logs/auditoria.
+\end{itemize}
+
+\subsection{Rastreabilidade }
+\begin{itemize}
+    \item RF01/RF02/RF05 → Casos de uso “Simplificar Documento” + Sequência + Classes Requisicao, Documento, Resultado.
+    \item RF03/RF06/RF13 → Atores “Portais/Jurisdições” + Sequência (ramo “nº processo”) + Conector JUR.
+    \item RF08/RNF11 → Logs/Observabilidade (componentes LOGS), estados, auditoria.
+    \item RNF02/RNF05/RNF10 → Sequência (SLA de tempo), Componentes/Deployment (escalabilidade, disponibilidade).
+    \item RNF03 → TTS/Preferências; Wireframes acessíveis.
+    \item RNF06/LGPD → Modelo de dados (retenção), API (consentimento), Deployment (segurança).
+\end{itemize}
+
+\subsection{Heurísticas e Diretrizes Utilizadas}
+\begin{itemize}
+    \item Casos de uso como narrativa textual essencial e caixa-preta; diagramas auxiliam na visualização, não substituem o texto.
+    \item Modelagem leve e iterativa, evoluindo com requisitos de maior valor/risco primeiro.
+    \item Protótipos/Wireframes para reduzir retrabalho e alinhar rapidamente com stakeholders.
+    \item DevOps/Deployment desde o início: automação, observabilidade e pequenos incrementos entregáveis.
+\end{itemize}
+
+\newpage
+
+\subsection{Próximos Passos de Modelagem}
+\begin{enumerate}
+    \item Detalhar texto completo dos Casos de Uso prioritários (incluindo pré/pós-condições, regras de negócio e exceções).
+    \item Refinar sequência com tempos de resposta máximos e fallback claros.
+    \item Versão 2 do ER (normalização, índices de busca por nº de processo, partição de histórico).
+    \item Protótipo navegável (baixa/alta fidelidade) para testes moderados com usuários.
+    \item Métricas de qualidade acopladas ao modelo (SLA, taxa de falha, cobertura de logs).
+\end{enumerate}
 
 \end{document}
