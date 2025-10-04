@@ -289,6 +289,53 @@ A linguagem de programação a ser usada no sistema é Python 3.11, com uma inte
 
 \newpage
 
+\section{Pipeline de CI/CD}
+
+\subsection{Pipeline de Integração Contínua (CI/CD)}
+
+O projeto utiliza um pipeline de integração contínua baseado em \textbf{GitHub Actions}, automatizando o processo de compilação do relatório técnico em formato PDF a partir do código-fonte \LaTeX.
+
+A pipeline é acionada automaticamente sempre que ocorre um \textit{push} ou \textit{pull request} na branch \texttt{main}. O fluxo principal está descrito abaixo:
+
+\begin{enumerate}
+  \item \textbf{Checkout do Repositório:} A ação \texttt{actions/checkout@v4} clona o repositório para o ambiente de execução.
+  \item \textbf{Compilação do Documento:} Utiliza a ação \texttt{xu-cheng/latex-action@v3} para compilar o arquivo \texttt{main.tex} via \texttt{XeLaTeX}, garantindo suporte a caracteres UTF-8 e pacotes modernos. O parâmetro \texttt{-f} é usado para forçar a compilação mesmo com imagens ausentes.
+  \item \textbf{Geração de Artefato PDF:} Após a compilação, o artefato resultante \texttt{main.pdf} é armazenado no GitHub como \texttt{IADvogado-report}, permitindo seu download direto na aba de artefatos do workflow.
+\end{enumerate}
+
+Esse pipeline garante reprodutibilidade, rastreabilidade e integração contínua entre a documentação e o código-fonte do sistema. O processo está descrito conceitualmente na Figura~\ref{fig:pipeline-ci}.
+
+\begin{figure}[H]
+\centering
+\begin{verbatim}
+name: Build LaTeX Document
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+jobs:
+  build_pdf:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: xu-cheng/latex-action@v3
+        with:
+          root_file: main.tex
+          latexmk_use_xelatex: true
+          args: -f
+      - uses: actions/upload-artifact@v4
+        with:
+          name: IADvogado-report
+          path: main.pdf
+\end{verbatim}
+\caption{Pipeline de integração contínua para compilação automática do relatório.}
+\label{fig:pipeline-ci}
+\end{figure}
+
+
+\newpage
+
 \subsection{Próximos Passos de Modelagem}
 \begin{enumerate}
     \item Detalhar texto completo dos Casos de Uso prioritários (incluindo pré/pós-condições, regras de negócio e exceções).
