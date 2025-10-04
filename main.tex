@@ -157,24 +157,24 @@ RE04&	A infraestrutura inicial deve operar em modelo de baixo custo.&	Média&	Op
 \subsection*{Tela Principal (Versão Desktop/Web e Mobile)}
 Protótipo da tela inicial onde o usuário interage com o sistema IADvogado. No desktop, os elementos aparecem organizados em uma interface ampla, enquanto no mobile o layout é simplificado e adaptado para telas menores, com botões mais acessíveis ao toque. Essa tela inclui opções como envio de documentos, consulta de processo e visualização de respostas. 
 
-\includegraphics{images/wireframe1.jpeg}
+\includegraphics{images/488857524-513c5783-90a3-4785-a3a8-041214390468.png}
 
 \newpage
 
 \subsection*{Interface do sistema IADvogado com WhatsApp}
 Mostra como a interação via WhatsApp será modelada: simula mensagens em que o usuário envia um documento ou número de processo e recebe de volta uma explicação simplificada, possivelmente com opção em áudio ou texto.
-\includegraphics{images/wireframe2.jpeg}
+\includegraphics{images/488854020-5cb044cf-bd2e-463b-be56-70f556ed3ffc.png}
 \newpage
 
 \subsection*{Tela Inicial em um app futuro}
 Protótipo de uma tela inicial caso o sistema evolua para um aplicativo dedicado. Exibe o logo e opções principais, como “Enviar documento”, “Consultar processo” e “Histórico”.
 
-\includegraphics{images/wireframe3.jpeg}
+\includegraphics{images/488854265-1f3c3198-5f5b-492a-85b2-fcf826105ffa.png}
 
 \subsection*{Tela de Resultado (tradução simplificada)}
 Mostra como será exibida a saída: após o envio de documento ou consulta, o sistema retorna uma tradução simplificada em blocos — o que aconteceu, o que significa e o que fazer agora.
 
-\includegraphics{images/wireframe 4.jpeg}
+\includegraphics{images/488854473-c9885c0e-2982-4055-8b41-44baeb4fe4d0.png}
 
 
 \section{Modelagem}
@@ -189,12 +189,12 @@ Esta seção oferece um esboço integrador do sistema, antecipando seu aspecto a
     \item \textbf{Visão de alto nível do fluxo:} Usuário envia documento/número de processo → sistema extrai texto (OCR) → simplifica (LLM) → estrutura saída → gera áudio (TTS) → devolve texto/áudio → registra logs/métricas.
 \end{itemize}
 \subsection{Diagrama de Contexto}
-\includegraphics[width=2\textwidth,height=6cm,keepaspectratio]{images/Modelo de Contexto.jpg}
+\includegraphics[width=2\textwidth,height=6cm,keepaspectratio]{images/486130606-99068cfc-9977-4b36-b273-cd742f36880f.png}
 \newpage
 \subsection{Modelo de Caso de Uso}
 
 \subsubsection{Diagrama de Casos de Uso (visão resumida)}
-\includegraphics[width=1.25\textwidth,height=10cm,keepaspectratio]{images/Caso de Uso.jpg}
+\includegraphics[width=1.25\textwidth,height=10cm,keepaspectratio]{images/488857090-49e54eee-2d6e-499b-9600-ad69237805b8.png}
 \subsubsection{Caso de Uso Crítico (Completo)}
 \begin{itemize}
     \item \textbf{Atores Principais: }Usuário (A1).
@@ -220,34 +220,34 @@ Esta seção oferece um esboço integrador do sistema, antecipando seu aspecto a
 \end{itemize}
 
 \subsection{Modelo de Sequência (Fluxo Principal do MVP)}
-\includegraphics[width=9\textwidth,height=7cm,keepaspectratio]{images/Modelo de Sequencia.png}
+\includegraphics[width=9\textwidth,height=7cm,keepaspectratio]{images/488839370-73a99421-2751-4901-8dad-6b8227931d8f.png}
 
 \subsection{Modelo de Classes}
-\includegraphics[width=9\textwidth,height=7cm,keepaspectratio]{images/Modelo de Classes.png}
+\includegraphics[width=9\textwidth,height=7cm,keepaspectratio]{images/488859339-e96e68b8-5b16-4772-ad8f-b181fcb76a5d.png}
 \subsubsection{Modelo de Classes - Integrações do Sistema}
-\includegraphics[width=1.3\textwidth,height=7cm,keepaspectratio]{images/Modelo de Classes - Intergrações.png}
+\includegraphics[width=1.3\textwidth,height=7cm,keepaspectratio]{images/488860207-8dae7c6e-94d9-4128-88ce-490bab98ead1.png}
 
 \subsection{Modelo de Componentes (Arquitetura Lógica)}
-\includegraphics[width=1.3\textwidth,height=7cm,keepaspectratio]{images/Modelo de Componentes.jpg}
+\includegraphics[width=1.3\textwidth,height=7cm,keepaspectratio]{images/Modelo-de-Componentes.jpg}
 \textbf{Racional:} separação de interface, aplicação, serviços externos e dados, favorecendo escalabilidade, testabilidade e DevOps.
 
 \subsection{Modelo de Implantação (Deployment - esboço)}
-\includegraphics[width=1.4\textwidth,height=7cm,keepaspectratio]{images/Modelo de Implatação.jpg}
+\includegraphics[width=1.4\textwidth,height=7cm,keepaspectratio]{images/Modelo-de-Implantacao.jpg}
 \textbf{Observações de DevOps: } integração/entrega contínua, logs/monitoramento, automação de infraestrutura e segurança na pipeline.
 
 \subsection{Modelo de Pacotes}
-\includegraphics[width=1.4\textwidth,height=7cm,keepaspectratio]{images/Modelo de Pacotes.jpg}
+\includegraphics[width=1.4\textwidth,height=7cm,keepaspectratio]{images/Modelo-de-Pacotes.jpg}
 \textbf{Observações de DevOps: } integração/entrega contínua, logs/monitoramento, automação de infraestrutura e segurança na pipeline.
 
 \newpage
 
 \subsection{Modelos de Dados (ER Simplificado)}
-\includegraphics[width=3\textwidth,height=8cm,keepaspectratio]{images/Modelo de Dados.jpg}
+\includegraphics[width=3\textwidth,height=8cm,keepaspectratio]{images/Modelo-de-Dados.jpg}
 
 \textbf{Nota:} chaves/relacionamentos mínimos para MVP; versionamento de esquema via migrações.
 
 \subsection{Modelo de Estados (Requisição)}
-\includegraphics[width=3\textwidth,height=7cm,keepaspectratio]{images/Modelo de Estados.jpg}
+\includegraphics[width=3\textwidth,height=7cm,keepaspectratio]{images/Modelo-de-Estados.jpg}
 
 \textbf{Eventos típicos:} arquivo recebido, OCR ok, LLM ok, TTS ok, falha externa.
 
