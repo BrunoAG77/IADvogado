@@ -18,10 +18,18 @@ jobs:
         uses: xu-cheng/latex-action@v3
         with:
           root_file: main.tex
+          latexmk_use_xelatex: true
+          extra_system_packages: >-
+            texlive-lang-portuguese
+            texlive-bibtex-extra
+            texlive-fonts-recommended
+            texlive-fonts-extra
+            texlive-latex-extra
+            texlive-science
+            texlive-pictures
 
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v4
         with:
           name: IADvogado-report
           path: main.pdf
-
