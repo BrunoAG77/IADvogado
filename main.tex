@@ -227,18 +227,6 @@ Esta seção oferece um esboço integrador do sistema, antecipando seu aspecto a
 \subsubsection{Modelo de Classes - Integrações do Sistema}
 \includegraphics[width=1.3\textwidth,height=7cm,keepaspectratio]{images/488860207-8dae7c6e-94d9-4128-88ce-490bab98ead1.png}
 
-\subsection{Modelo de Componentes (Arquitetura Lógica)}
-\includegraphics[width=1.3\textwidth,height=7cm,keepaspectratio]{images/Modelo-de-Componentes.jpg}
-\textbf{Racional:} separação de interface, aplicação, serviços externos e dados, favorecendo escalabilidade, testabilidade e DevOps.
-
-\subsection{Modelo de Implantação (Deployment - esboço)}
-\includegraphics[width=1.4\textwidth,height=7cm,keepaspectratio]{images/Modelo-de-Implantacao.jpg}
-\textbf{Observações de DevOps: } integração/entrega contínua, logs/monitoramento, automação de infraestrutura e segurança na pipeline.
-
-\subsection{Modelo de Pacotes}
-\includegraphics[width=1.4\textwidth,height=7cm,keepaspectratio]{images/Modelo-de-Pacotes.jpg}
-\textbf{Observações de DevOps: } integração/entrega contínua, logs/monitoramento, automação de infraestrutura e segurança na pipeline.
-
 \newpage
 
 \subsection{Modelos de Dados (ER Simplificado)}
@@ -250,6 +238,24 @@ Esta seção oferece um esboço integrador do sistema, antecipando seu aspecto a
 \includegraphics[width=3\textwidth,height=7cm,keepaspectratio]{images/Modelo-de-Estados.jpg}
 
 \textbf{Eventos típicos:} arquivo recebido, OCR ok, LLM ok, TTS ok, falha externa.
+
+\newpage
+
+\section{Arquitetura do Sistema}
+
+A linguagem de programação a ser usada no sistema é Python 3.11, com uma integração de API.
+
+\subsection{Modelo de Componentes (Arquitetura Lógica)}
+\includegraphics[width=1.3\textwidth,height=7cm,keepaspectratio]{images/Modelo-de-Componentes.jpg}
+\textbf{Racional:} separação de interface, aplicação, serviços externos e dados, favorecendo escalabilidade, testabilidade e DevOps.
+
+\subsection{Modelo de Implantação (Deployment - esboço)}
+\includegraphics[width=1.4\textwidth,height=7cm,keepaspectratio]{images/Modelo-de-Implantacao.jpg}
+\textbf{Observações de DevOps: } integração/entrega contínua, logs/monitoramento, automação de infraestrutura e segurança na pipeline.
+
+\subsection{Modelo de Pacotes}
+\includegraphics[width=1.4\textwidth,height=7cm,keepaspectratio]{images/Modelo-de-Pacotes.jpg}
+\textbf{Observações de DevOps: } Apresenta a organização lógica dos módulos do sistema, agrupando classes e componentes relacionados. Cada pacote representa um domínio funcional (ex.: Interface, Negócio, Persistência, Comunicação).
 
 \newpage
 
