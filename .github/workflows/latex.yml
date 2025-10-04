@@ -19,21 +19,7 @@ jobs:
         with:
           root_file: main.tex
           latexmk_use_xelatex: true
-          extra_system_packages: >-
-            texlive-bibtex-extra
-            texlive-science
-            texlive-pictures
-            texlive-latex-extra
-            texlive-fonts-extra
-            texlive-fonts-recommended
-            texlive-lang-european
-            texlive-lang-other
-            texlive-luatex
-            texlive-xetex
-            texlive-latex-recommended
-            texlive-math-extra
-            texlive-plaingeneric
-            texlive-plainextra
+          # não adiciona pacotes extras via apk → texlive-full já tem tudo
 
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v4
