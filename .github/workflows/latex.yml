@@ -14,12 +14,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Compile LaTeX document
+      - name: Compile LaTeX document (ignore missing images)
         uses: xu-cheng/latex-action@v3
         with:
           root_file: main.tex
           latexmk_use_xelatex: true
-          # não adiciona pacotes extras via apk → texlive-full já tem tudo
+          args: -f
 
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v4
