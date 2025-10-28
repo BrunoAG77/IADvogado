@@ -1,0 +1,29 @@
+# Configurações do Supabase
+SUPABASE_URL=your_supabase_url_here
+SUPABASE_KEY=your_supabase_key_here
+
+# Configurações do WhatsApp (opcional)
+WHATSAPP_API_URL=your_whatsapp_api_url_here
+WHATSAPP_API_TOKEN=your_whatsapp_token_here
+
+# Configurações do Llama 3.1 (opcional - usa valores padrão se não especificado)
+LLAMA_MODEL_NAME=meta-llama/Llama-3.1-8B-Instruct
+LLAMA_DEVICE=auto
+LLAMA_MAX_TOKENS=512
+LLAMA_TEMPERATURE=0.2
+LLAMA_USE_QUANTIZATION=true
+LLAMA_QUANTIZATION_CONFIG=4bit
+
+# Outras configurações
+TTS_PROVIDER=edge
+DATA_RETENTION_DAYS=30
+OCR_ENGINE=pytesseract
+
+# Configurações do Edge TTS
+TTS_VOICE=pt-BR-FranciscaNeural
+TTS_RATE=+5%
+TTS_VOLUME=+0%
+TTS_PITCH=+2Hz
+TTS_USE_SSML=true
+TTS_CACHE_ENABLED=true
+TTS_CACHE_TTL=3600

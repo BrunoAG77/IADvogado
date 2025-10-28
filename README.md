@@ -50,10 +50,44 @@ O projeto tem como foco principal reduzir as barreiras de entendimento que afast
 1. **Interação**: WhatsApp (usando API do tipo Evolution ou similar) como principal canal de comunicação.  
 2. **Backend**: FastAPI em Python, com banco de dados Supabase/Postgres.  
 3. **Processamento**:  
-   - OCR para leitura de documentos;  
-   - LLM para simplificação da linguagem jurídica;  
-   - TTS para conversão em áudio.  
+   - OCR para leitura de documentos (Pytesseract);  
+   - **LLM Local**: Llama 3.1 8B-Instruct para simplificação da linguagem jurídica;  
+   - TTS para conversão em áudio (Google TTS).  
 4. **Entrega**: resposta clara em texto e/ou áudio enviada ao usuário em ritmo rápido (por exemplo, em menos de dois minutos).
+
+### **Mudanças na Arquitetura (2024)**
+- **Migração de OpenAI para Llama 3.1 8B-Instruct**: Redução de custos em ~47%
+- **Processamento Local**: Dados não saem do servidor, maior conformidade LGPD
+- **Quantização 4bit**: Otimização de memória para servidores com recursos limitados
+
+---
+
+## Status de Implementação
+
+### ✅ **Funcionalidades Implementadas**
+- Upload e processamento de documentos (PDF, imagens)
+- OCR com Pytesseract (português)
+- Simplificação de texto jurídico com Llama 3.1 8B-Instruct
+- Estrutura de resposta em 3 blocos obrigatórios
+- Geração de áudio (TTS) com Google TTS
+- Armazenamento seguro no Supabase
+- Integração WhatsApp (estrutura pronta)
+- Disclaimers legais obrigatórios
+
+### ⚠️ **Funcionalidades Parcialmente Implementadas**
+- Consulta por número de processo (placeholder)
+- Envio de áudio via WhatsApp
+- Logs de sistema (básico)
+
+### ❌ **Funcionalidades Pendentes**
+- Autenticação de usuários
+- Histórico de consultas
+- Sistema de preferências
+- Notificações automáticas
+- Sistema de feedback
+- Monitoramento robusto
+
+### 📊 **Progresso Geral: ~60% implementado**
 
 ---
 
