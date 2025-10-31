@@ -1,0 +1,45 @@
+# Arquivos de ambiente com credenciais
+.env
+.env.local
+.env.*.local
+
+# Cache Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Ambientes virtuais
+venv/
+env/
+ENV/
+.venv
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+logs/
+
+# Cache de áudio TTS
+audio_cache/
+
+# Modelos baixados (opcional - pode ser grande)
+models/
+*.bin
+*.safetensors
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos temporários
+*.tmp
+*.temp
+

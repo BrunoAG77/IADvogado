@@ -2,6 +2,11 @@
 SUPABASE_URL=your_supabase_url_here
 SUPABASE_KEY=your_supabase_key_here
 
+# Token do Hugging Face (necessário para usar Llama 3.1)
+# Obtenha em: https://huggingface.co/settings/tokens
+# Aceite os termos em: https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct
+HUGGING_FACE_HUB_TOKEN=your_huggingface_token_here
+
 # Configurações do WhatsApp (opcional)
 WHATSAPP_API_URL=your_whatsapp_api_url_here
 WHATSAPP_API_TOKEN=your_whatsapp_token_here

@@ -5,6 +5,7 @@ import json
 import re
 from ..config.config import settings
 import logging
+import os
 
 # Configurar logging
 logging.basicConfig(level=logging.INFO)
@@ -15,7 +16,10 @@ class LlamaClient:
         self.model = None
         self.tokenizer = None
         self.device = self._get_device()
-        self._load_model()
+        self.model_loaded = False
+        self.load_error = None
+        # Não carrega o modelo imediatamente - lazy loading
+        # self._load_model()  # Removido - será carregado quando necessário
     
     def _get_device(self):
         """Determina o melhor dispositivo disponível"""
@@ -44,25 +48,65 @@ class LlamaClient:
             )
         return None
     
+    def _ensure_model_loaded(self):
+        """Garante que o modelo está carregado (lazy loading)"""
+        if self.model_loaded:
+            return True
+        
+        if self.load_error:
+            raise RuntimeError(f"Modelo não pode ser carregado: {self.load_error}")
+        
+        return self._load_model()
+    
     def _load_model(self):
         """Carrega o modelo Llama 3.1 8B"""
         try:
             logger.info(f"Carregando modelo {settings.llama_model_name}...")
             
-            # Configurar tokenizer
+            # Verificar token do Hugging Face
+            hf_token = (
+                os.getenv("HUGGING_FACE_HUB_TOKEN") or 
+                os.getenv("HF_TOKEN") or 
+                settings.hugging_face_hub_token
+            )
+            if not hf_token:
+                logger.warning(
+                    "⚠️ Token do Hugging Face não encontrado!\n"
+                    "Para usar o modelo Llama 3.1, você precisa:\n"
+                    "1. Acessar https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct\n"
+                    "2. Aceitar os termos de uso\n"
+                    "3. Criar um token em https://huggingface.co/settings/tokens\n"
+                    "4. Definir a variável de ambiente: HUGGING_FACE_HUB_TOKEN=seu_token\n"
+                    "Ou adicionar no .env: HUGGING_FACE_HUB_TOKEN=seu_token"
+                )
+                raise RuntimeError(
+                    "Token do Hugging Face necessário. "
+                    "Defina HUGGING_FACE_HUB_TOKEN ou HF_TOKEN no ambiente."
+                )
+            
+            # Configurar tokenizer com autenticação
+            tokenizer_kwargs = {
+                "trust_remote_code": True,
+            }
+            if hf_token:
+                tokenizer_kwargs["token"] = hf_token
+            
             self.tokenizer = AutoTokenizer.from_pretrained(
                 settings.llama_model_name,
-                trust_remote_code=True
+                **tokenizer_kwargs
             )
             
             # Configurar quantização
             quantization_config = self._get_quantization_config()
             
-            # Carregar modelo
+            # Carregar modelo com autenticação
             model_kwargs = {
                 "trust_remote_code": True,
                 "torch_dtype": torch.float16 if self.device != "cpu" else torch.float32,
             }
+            
+            if hf_token:
+                model_kwargs["token"] = hf_token
             
             if quantization_config:
                 model_kwargs["quantization_config"] = quantization_config
@@ -80,10 +124,40 @@ class LlamaClient:
                 self.tokenizer.pad_token = self.tokenizer.eos_token
             
             logger.info(f"Modelo carregado com sucesso no dispositivo: {self.device}")
+            self.model_loaded = True
+            return True
             
-        except Exception as e:
+        except RuntimeError as e:
+            # Erro de autenticação ou configuração
+            self.load_error = str(e)
             logger.error(f"Erro ao carregar modelo: {e}")
             raise
+        except Exception as e:
+            # Outros erros
+            error_msg = str(e)
+            self.load_error = error_msg
+            
+            # Verificar se é erro de autenticação
+            if "gated" in error_msg.lower() or "401" in error_msg or "unauthorized" in error_msg.lower():
+                logger.error(
+                    f"\n{'='*60}\n"
+                    f"❌ ERRO DE AUTENTICAÇÃO NO HUGGING FACE\n"
+                    f"{'='*60}\n"
+                    f"O modelo Llama 3.1 requer autenticação.\n\n"
+                    f"Para resolver:\n"
+                    f"1. Acesse: https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct\n"
+                    f"2. Aceite os termos de uso\n"
+                    f"3. Crie um token em: https://huggingface.co/settings/tokens\n"
+                    f"4. Configure o token:\n"
+                    f"   - Windows PowerShell: $env:HUGGING_FACE_HUB_TOKEN='seu_token'\n"
+                    f"   - Linux/Mac: export HUGGING_FACE_HUB_TOKEN='seu_token'\n"
+                    f"   - Ou adicione no .env: HUGGING_FACE_HUB_TOKEN=seu_token\n"
+                    f"{'='*60}\n"
+                )
+            else:
+                logger.error(f"Erro ao carregar modelo: {e}")
+            
+            raise RuntimeError(f"Não foi possível carregar o modelo: {error_msg}")
     
     def _create_prompt(self, text: str) -> str:
         """Cria prompt otimizado para simplificação de texto jurídico"""
@@ -108,6 +182,15 @@ Simplifique este texto jurídico:
     def simplify_text(self, text: str) -> Dict[str, str]:
         """Simplifica texto jurídico usando Llama 3.1"""
         try:
+            # Carregar modelo se ainda não foi carregado (lazy loading)
+            if not self.model_loaded:
+                self._ensure_model_loaded()
+            
+            # Verificar se o modelo está disponível
+            if self.model is None or self.tokenizer is None:
+                logger.warning("Modelo não disponível, usando fallback")
+                return self._fallback_response(text)
+            
             prompt = self._create_prompt(text)
             
             # Tokenizar entrada
@@ -145,6 +228,10 @@ Simplifique este texto jurídico:
             
             return parsed_response
             
+        except RuntimeError as e:
+            # Erro de carregamento do modelo
+            logger.error(f"Erro ao simplificar texto: {e}")
+            return self._fallback_response(text)
         except Exception as e:
             logger.error(f"Erro ao simplificar texto: {e}")
             # Fallback para resposta estruturada manual
@@ -224,7 +311,7 @@ Simplifique este texto jurídico:
             'what_to_do_now': "Procure a Defensoria Pública ou um advogado para orientação específica sobre este caso."
         }
 
-# Instância global do cliente
+# Instância global do cliente (lazy loading - não carrega o modelo imediatamente)
 llama_client = LlamaClient()
 
 # Função de compatibilidade com o código existente

@@ -1,5 +1,6 @@
 from fastapi import FastAPI, UploadFile, File, Form, BackgroundTasks, HTTPException
-from fastapi.responses import JSONResponse, StreamingResponse
+from fastapi.responses import JSONResponse, StreamingResponse, FileResponse
+from fastapi.staticfiles import StaticFiles
 from ..services.ocr_worker import image_bytes_to_text
 from ..services.llama_client import simplify_text  # Mudança: usando Llama ao invés de OpenAI
 from ..services.edge_tts_worker import text_to_speech_bytes, edge_tts_worker  # Mudança: usando Edge TTS
@@ -8,10 +9,25 @@ from ..utils.utils import make_disclaimer, expiration_date
 from ..integrations.whatsapp_adapter import send_whatsapp_text
 import asyncio
 import logging
+import os
+import base64
 
 logger = logging.getLogger(__name__)
 
 app = FastAPI(title="IADvogado - Justiça Simples")
+
+# Servir arquivos estáticos
+static_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "static")
+if os.path.exists(static_dir):
+    app.mount("/static", StaticFiles(directory=static_dir), name="static")
+
+@app.get("/")
+async def root():
+    """Redireciona para a página do chatbot"""
+    chatbot_path = os.path.join(static_dir, "chatbot.html")
+    if os.path.exists(chatbot_path):
+        return FileResponse(chatbot_path)
+    return {"message": "IADvogado API", "chatbot": "/static/chatbot.html"}
 
 @app.post('/upload')
 async def upload_document(
@@ -57,7 +73,21 @@ async def upload_document(
                 logger.error(f'Erro ao gerar áudio: {e}')
                 print('TTS failed:', e)
 
+    # Gerar áudio se solicitado (mesmo sem WhatsApp)
+    audio_base64 = None
+    if as_audio:
+        try:
+            audio_bytes = await text_to_speech_bytes(payload_text)
+            audio_base64 = base64.b64encode(audio_bytes).decode('utf-8')
+            logger.info(f"Áudio gerado com sucesso: {len(audio_bytes)} bytes")
+        except Exception as e:
+            logger.error(f'Erro ao gerar áudio: {e}')
+
     response = {"success": True, "text": payload_text}
+    if audio_base64:
+        response["audio_base64"] = audio_base64
+        response["audio_format"] = "mp3"
+    
     return JSONResponse(response)
 
 @app.post('/process-number')

@@ -87,3 +87,5 @@ python run.py
 - **Pytesseract**: OCR para extração de texto
 - **Supabase**: Backend-as-a-Service
 - **Pydantic**: Validação de dados
+
+

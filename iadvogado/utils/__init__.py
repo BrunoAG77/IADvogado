@@ -1,3 +1,5 @@
 """
 Utilitários e funções auxiliares
 """
+
+

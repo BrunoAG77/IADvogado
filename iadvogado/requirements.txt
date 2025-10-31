@@ -1,7 +1,9 @@
 fastapi
 uvicorn[standard]
 python-multipart
+aiofiles
 pydantic
+pydantic-settings
 pillow
 pytesseract
 # openai  # Comentado - usando Llama local
